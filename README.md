@@ -1,6 +1,8 @@
 # Dramamancer
 
-This is the public repo for **Dramamancer**, an AI-powered game engine in the style of a visual novel. Follow the instructions below to run the app locally. All that's needed is an Anthropic API key.
+This is the community repo for **Dramamancer**, an experimental AI-powered interactive storytelling app. 
+
+Follow the instructions below to run the app locally. All that's needed is an Anthropic API key.
 
 <p align="center">
   <img src="public/dramamancer_anim.gif" alt="Dramamancer animated preview" width="520" />
