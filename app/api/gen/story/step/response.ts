@@ -56,9 +56,9 @@ export async function generateNextLines(input: StepApiInputType): Promise<StepAp
           }),
         },
       ] as ApiLine[],
-      {
-        temperature: 0.5,
-      },
+      // {
+      //   temperature: 0.5,
+      // },
     );
     console.log(
       '\n\n--- Generated line ---\n',
