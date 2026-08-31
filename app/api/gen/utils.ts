@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 export interface ApiOptions {
   model?: string;
-  temperature?: number;
+  // temperature?: number;
   maxTokens?: number;
 }
 
@@ -14,8 +14,8 @@ export function getRequestId(request?: Request): string {
 }
 
 const DEFAULT_API_OPTIONS: ApiOptions = {
-  model: 'claude-sonnet-4-20250514',
-  temperature: 0.8,
+  model: 'claude-sonnet-5',
+  // temperature: 0.8,
   maxTokens: 1000,
 };
 
@@ -33,7 +33,8 @@ export async function callAnthropicAPI(
     throw new Error('Anthropic API key is not configured');
   }
 
-  const { model, temperature, maxTokens } = { ...DEFAULT_API_OPTIONS, ...options };
+  // const { model, temperature, maxTokens } = { ...DEFAULT_API_OPTIONS, ...options };
+  const { model, maxTokens } = { ...DEFAULT_API_OPTIONS, ...options };
 
   const response = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -47,7 +48,7 @@ export async function callAnthropicAPI(
       messages,
       system: systemPrompt,
       max_tokens: maxTokens,
-      temperature,
+      // temperature,
     }),
   });
 
@@ -80,7 +81,9 @@ export async function callAnthropicAPI(
     throw new Error('Invalid API response structure: content array missing or empty');
   }
 
-  const contentItem = data.content[0];
+  // Skip the first thinking token if it exists
+  const contentItem = data.content[0].type == 'text' ? data.content[0] : data.content[1];
+
   if (!contentItem || typeof contentItem.text !== 'string') {
     console.error('Unexpected content item structure:', JSON.stringify(contentItem));
     throw new Error('Invalid content item: text field missing or not a string');
